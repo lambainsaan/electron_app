@@ -1,5 +1,72 @@
-<div class="container">
-  <h1 class="title">
-    {{title}}
-  </h1>
-</div>
+<button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button>
+
+    <form [formGroup]="itemForm">
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Item Name" formControlName="itemName" required>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Item Detail" formControlName="itemDetail">
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Item Category" aria-label="State" [matAutocomplete]="auto" formControlName="itemCategory">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let food of filteredCategories | async " [value]="food">
+              {{food}}
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Item Parent Company" formControlName="itemParentCompany" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Number of Subitems" formControlName="numberOfVariants" required>
+      </mat-form-field>
+      <div>
+        <button mat-button >Next</button>
+      </div>
+      </form>
+  
+      <form *ngFor="let form of subForm" [formGroup]="form">
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Sub name" formControlName="itemSubName">
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Quantity" formControlName="itemQuantity" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Picutre File Path" formControlName="itemPicture" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Barcode" formControlName="itemBarcode" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="MRP" formControlName="itemMRP" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Wholesale Rate" formControlName="itemWholesaleRate" required>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Contents" formControlName="itemContents" required>
+      </mat-form-field>
+      </form>
+  <!-- <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper> -->

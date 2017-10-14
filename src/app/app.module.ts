@@ -12,6 +12,13 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ElectronService } from './providers/electron.service';
+import { MatStepperModule, MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ItemCategoriesService } from './services/item-categories.service';
+import { ItemSubCategoriesService } from './services/item-sub-categories.service';
+import { HttpClientModule } from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -22,9 +29,17 @@ import { ElectronService } from './providers/electron.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    HttpClientModule
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, ItemCategoriesService, ItemSubCategoriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
