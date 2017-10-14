@@ -35,9 +35,6 @@ export class HomeComponent implements OnInit {
     itemContents: ['', [Validators.required]],
   })]
 
-
-
-
   formErrors = {
     'itemName': '',
     'itemDetail': '',
@@ -45,6 +42,7 @@ export class HomeComponent implements OnInit {
     'itemParentCompany': '',
     'numberOfVariants': ''
   };
+
   validationMessages = {
     'itemName': {
       'required': 'Item name is required.',
@@ -68,13 +66,13 @@ export class HomeComponent implements OnInit {
       .startWith(null)
       .map(state => state ? this.filterStates(state) : this.categories.slice());
     this.itemForm.get('numberOfVariants').valueChanges.subscribe(number => { this.numberOfVariants = +number; this.valueChangedNumberofVariants() });
-    this.subForm[0].valueChanges.subscribe(function anon(index, changedValue) {
-      if (this.subFormCopy === undefined) {
-        this.subFormCopy = [changedValue];
-      } else {
-        this.subFormCopy[index] = changedValue;
-      }
-    }.bind(this, this.subForm.length - 1))
+    // this.subForm[0].valueChanges.subscribe(function anon(index, changedValue) {
+    //   if (this.subFormCopy === undefined) {
+    //     this.subFormCopy = [changedValue];
+    //   } else {
+    //     this.subFormCopy[index] = changedValue;
+    //   }
+    // }.bind(this, this.subForm.length - 1))
   }
 
 
