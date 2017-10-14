@@ -26,13 +26,13 @@ export class HomeComponent implements OnInit {
   subFormCopy: FormGroup[];
   numberOfVariants = 1
   subForm = [this.fb.group({
-    itemSubName: ['', [Validators.required]],
+    itemSubName: [''],
     itemQuantity: ['', [Validators.required]],
-    itemPicture: ['', [Validators.required]],
+    itemPicture: [''],
     itemBarcode: ['', [Validators.required]],
     itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-    itemWholesaleRate: ['', [Validators.required]],
-    itemContents: ['', [Validators.required]],
+    itemWholesaleRate: ['', Validators.pattern('[0-9]*')],
+    itemContents: [''],
   })]
 
   formErrors = {
@@ -58,6 +58,21 @@ export class HomeComponent implements OnInit {
     },
   };
 
+  validationMessagesVariants = {
+    'itemQuantity': {
+      'required': 'Item Quantity is required.',
+    },
+    'itemBarcode': {
+      'required': 'Barcode is required.'
+    }, 
+    'itemMRP': {
+      'required': 'MRP is required.',
+      'pattern': 'MRP must be a number'
+    },
+    'itemWholesaleRate': {
+      'pattern': 'Wholesale rate must be a number'
+    }
+  };
 
   constructor(private fb: FormBuilder,
     private itemCategoriesService: ItemCategoriesService, ) {
@@ -66,6 +81,7 @@ export class HomeComponent implements OnInit {
       .startWith(null)
       .map(state => state ? this.filterStates(state) : this.categories.slice());
     this.itemForm.get('numberOfVariants').valueChanges.subscribe(number => { this.numberOfVariants = +number; this.valueChangedNumberofVariants() });
+    this.subForm[0].valueChanges.subscribe(value => console.log(value));
     // this.subForm[0].valueChanges.subscribe(function anon(index, changedValue) {
     //   if (this.subFormCopy === undefined) {
     //     this.subFormCopy = [changedValue];
@@ -83,14 +99,14 @@ export class HomeComponent implements OnInit {
   createForm() {
     this.itemForm = this.fb.group({
       itemName: ['', [Validators.required]],
-      itemDetail: ['', [Validators.required]],
+      itemDetail: [''],
       itemCategory: ['', [Validators.required]],
       itemParentCompany: ['', [Validators.required]],
       numberOfVariants: [1, [Validators.required, Validators.pattern('[0-9]*')]],
     });
     this.itemForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
-    this.onValueChanged(); // (re)set validation messages now
+      .subscribe(data => this.onValueChangedItemForm(data));
+    this.onValueChangedItemForm(); // (re)set validation messages now
   }
 
 
@@ -101,12 +117,12 @@ export class HomeComponent implements OnInit {
     if (this.subForm.length < this.numberOfVariants) {
       for (let i = 0; i < this.numberOfVariants; i++) {
         this.subForm.push(this.fb.group({
-          itemSubName: ['', [Validators.required]],
+          itemSubName: [''],
           itemQuantity: ['', [Validators.required]],
           itemPicture: ['', [Validators.required]],
           itemBarcode: ['', [Validators.required]],
           itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-          itemWholesaleRate: ['', [Validators.required]],
+          itemWholesaleRate: ['', [Validators.required, Validators.pattern('[0-9]*')]],
           itemContents: ['', [Validators.required]],
         }));
         //   this.subForm[this.subForm.length - 1].valueChanges.subscribe(function anon(index, changedValue) {
@@ -117,9 +133,28 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-  onValueChanged(data?: any) {
+
+  onValueChangedItemForm(data?: any) {
     if (!this.itemForm) { return; }
     const form = this.itemForm;
+    // tslint:disable-next-line:forin
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        // tslint:disable-next-line:forin
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  onValueChangedVariant(index : number) {
+    if (!this.subForm[index]) { return; }
+    const form = this.subForm[index];
     // tslint:disable-next-line:forin
     for (const field in this.formErrors) {
       // clear previous error message (if any)
