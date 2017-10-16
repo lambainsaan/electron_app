@@ -1,72 +1,54 @@
-<button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button>
+<mat-toolbar color="warn">
+  Ooozee Database Creator
+</mat-toolbar>
 
-    <form [formGroup]="itemForm">
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Item Name" formControlName="itemName" required>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Item Detail" formControlName="itemDetail">
-      </mat-form-field>
+<form [formGroup]="itemForm" novalidate class="formSize container">
+  <mat-input-container class="half-width" dividerColor="{{ formErrorsItem.itemName ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Item Name" formControlName="itemName" required>
+    <mat-hint>
+      <span [hidden]="!(formErrorsItem.itemName)">
+                  {{ formErrorsItem.itemName }}</span>
+    </mat-hint>
+  </mat-input-container>
 
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Item Category" aria-label="State" [matAutocomplete]="auto" formControlName="itemCategory">
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let food of filteredCategories | async " [value]="food">
-              {{food}}
-            </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Item Parent Company" formControlName="itemParentCompany" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Number of Subitems" formControlName="numberOfVariants" required>
-      </mat-form-field>
-      <div>
-        <button mat-button >Next</button>
+  <mat-input-container class="full-width" dividerColor="{{ formErrorsItem.itemDetail ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Item Detail" formControlName="itemDetail">
+    <mat-hint>
+      <span [hidden]="!(formErrorsItem.itemDetail)">
+                  {{ formErrorsItem.itemDetail }}</span>
+    </mat-hint>
+  </mat-input-container>
+  <mat-input-container class="half-width" dividerColor="{{ formErrorsItem.itemCategory ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Item Category" aria-label="State" [matAutocomplete]="auto" formControlName="itemCategory">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let food of filteredCategories | async " [value]="food">
+        {{food}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-hint>
+      <span [hidden]="!(formErrorsItem.itemCategory)">
+                  {{ formErrorsItem.itemCategory }}</span>
+    </mat-hint>
+  </mat-input-container>
+  <mat-input-container class="half-width" dividerColor="{{ formErrorsItem.itemParentCompany ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Item Parent Company" formControlName="itemParentCompany" required>
+    <mat-hint>
+      <span [hidden]="!(formErrorsItem.itemParentCompany)">
+                  {{ formErrorsItem.itemParentCompany }}</span>
+    </mat-hint>
+  </mat-input-container>
+  <div formArrayName="subItems">
+    <button mat-raised-button color="warn" (click)="removeSubItem()" [disabled]="itemForm.controls.subItems.controls.length == 1">-</button>
+    <button mat-raised-button color="warn" (click)="addSubItem()">+</button>
+    <div *ngFor="let form of itemForm.controls.subItems.controls; let i = index">
+      <h3>
+        Item {{ i }} Detail
+      </h3>
+      <div [formGroupName]="i">
+        <app-sub-item [group]="form" [index]="i" [errors]="formErrorsSubItems[i]">
+        </app-sub-item>
       </div>
-      </form>
-  
-      <form *ngFor="let form of subForm" [formGroup]="form">
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Sub name" formControlName="itemSubName">
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Quantity" formControlName="itemQuantity" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Picutre File Path" formControlName="itemPicture" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Barcode" formControlName="itemBarcode" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="MRP" formControlName="itemMRP" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Wholesale Rate" formControlName="itemWholesaleRate" required>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Contents" formControlName="itemContents" required>
-      </mat-form-field>
-      </form>
-  <!-- <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
     </div>
-  </mat-step>
-</mat-horizontal-stepper> -->
+  </div>
+  <button mat-raised-button type="submit" color="warn" [disabled]="!itemForm.valid" (click)="onSubmit()">Submit</button>
+</form>

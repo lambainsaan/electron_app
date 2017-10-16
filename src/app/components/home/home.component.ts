@@ -1,13 +1,12 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Item, SubItems } from '../../shared/item';
 import { ItemSubCategoriesService } from '../../services/item-sub-categories.service';
 import { ItemCategoriesService } from '../../services/item-categories.service';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
-
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-home',
@@ -16,32 +15,25 @@ import 'rxjs/add/operator/map';
 })
 
 export class HomeComponent implements OnInit {
-  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   categories = ['rhitik', 'prasun', 'jaisal'];
   itemForm: FormGroup;
   item: Item;
   filteredCategories: Observable<any[]>;
-  subFormCopy: FormGroup[];
-  numberOfVariants = 1
-  subForm = [this.fb.group({
-    itemSubName: [''],
-    itemQuantity: ['', [Validators.required]],
-    itemPicture: [''],
-    itemBarcode: ['', [Validators.required]],
-    itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-    itemWholesaleRate: ['', Validators.pattern('[0-9]*')],
-    itemContents: [''],
-  })]
-
-  formErrors = {
+  formErrorsItem = {
     'itemName': '',
     'itemDetail': '',
     'itemCategory': '',
     'itemParentCompany': '',
-    'numberOfVariants': ''
   };
+
+  formErrorsSubItems = [{
+    'itemQuantity': '',
+    'itemBarcode': '',
+    'itemMRP': '',
+    'itemWholesaleRate': ''
+  }]
 
   validationMessages = {
     'itemName': {
@@ -53,18 +45,17 @@ export class HomeComponent implements OnInit {
     'itemParentCompany': {
       'required': 'Item Parent Company is required.'
     },
-    'numberOfVariants': {
-      'required': 'Number of variants is required.'
-    },
+
   };
 
   validationMessagesVariants = {
+
     'itemQuantity': {
       'required': 'Item Quantity is required.',
     },
     'itemBarcode': {
       'required': 'Barcode is required.'
-    }, 
+    },
     'itemMRP': {
       'required': 'MRP is required.',
       'pattern': 'MRP must be a number'
@@ -75,20 +66,13 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-    private itemCategoriesService: ItemCategoriesService, ) {
-    this.createForm();
+    private itemCategoriesService: ItemCategoriesService, 
+    private http: Http,) {
+    this.initItemForm();
     this.filteredCategories = this.itemForm.get('itemCategory').valueChanges
       .startWith(null)
       .map(state => state ? this.filterStates(state) : this.categories.slice());
-    this.itemForm.get('numberOfVariants').valueChanges.subscribe(number => { this.numberOfVariants = +number; this.valueChangedNumberofVariants() });
-    this.subForm[0].valueChanges.subscribe(value => console.log(value));
-    // this.subForm[0].valueChanges.subscribe(function anon(index, changedValue) {
-    //   if (this.subFormCopy === undefined) {
-    //     this.subFormCopy = [changedValue];
-    //   } else {
-    //     this.subFormCopy[index] = changedValue;
-    //   }
-    // }.bind(this, this.subForm.length - 1))
+
   }
 
 
@@ -96,75 +80,88 @@ export class HomeComponent implements OnInit {
   }
 
 
-  createForm() {
+  initItemForm() {
     this.itemForm = this.fb.group({
       itemName: ['', [Validators.required]],
       itemDetail: [''],
       itemCategory: ['', [Validators.required]],
       itemParentCompany: ['', [Validators.required]],
-      numberOfVariants: [1, [Validators.required, Validators.pattern('[0-9]*')]],
+      subItems: this.fb.array([
+        this.initSubItem()
+      ])
     });
+    this.itemForm.controls.subItems.valueChanges.subscribe(() => { this.onValueChangedVariant(+this.itemForm.get('subItems.length') - 1)})
     this.itemForm.valueChanges
       .subscribe(data => this.onValueChangedItemForm(data));
     this.onValueChangedItemForm(); // (re)set validation messages now
   }
 
 
+  initSubItem() {
+    const subItem = this.fb.group({
+      itemSubName: [''],
+      itemQuantity: ['', [Validators.required]],
+      itemPicture: [''],
+      itemBarcode: ['', [Validators.required]],
+      itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      itemWholesaleRate: ['', [ Validators.pattern('[0-9]*')]],
+      itemContents: [''],
+    });
+    return subItem;
+  }
 
-  /** This function changes the dom when the number of variants is changed in the parent form.*/
-  valueChangedNumberofVariants() {
-    this.subForm = this.subForm.slice(0, this.numberOfVariants);
-    if (this.subForm.length < this.numberOfVariants) {
-      for (let i = 0; i < this.numberOfVariants; i++) {
-        this.subForm.push(this.fb.group({
-          itemSubName: [''],
-          itemQuantity: ['', [Validators.required]],
-          itemPicture: ['', [Validators.required]],
-          itemBarcode: ['', [Validators.required]],
-          itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-          itemWholesaleRate: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-          itemContents: ['', [Validators.required]],
-        }));
-        //   this.subForm[this.subForm.length - 1].valueChanges.subscribe(function anon(index, changedValue) {
-        //     this.subFormCopy.push(changedValue);
-        //     console.log(changedValue, index)
-        //   }.bind(this, this.subForm.length - 1))
-        // }
-      }
-    }
+  addSubItem() {
+    const control = <FormArray>this.itemForm.controls['subItems'];
+    control.push(this.initSubItem());
+    this.formErrorsSubItems.push({
+      'itemQuantity': '',
+      'itemBarcode': '',
+      'itemMRP': '',
+      'itemWholesaleRate': ''
+    });
+  }
+
+  removeSubItem() {
+    // remove address from the list
+    const control = <FormArray>this.itemForm.controls['subItems'];
+    control.removeAt(control.length - 1);
   }
 
   onValueChangedItemForm(data?: any) {
     if (!this.itemForm) { return; }
     const form = this.itemForm;
     // tslint:disable-next-line:forin
-    for (const field in this.formErrors) {
+    for (const field in this.formErrorsItem) {
       // clear previous error message (if any)
-      this.formErrors[field] = '';
+      this.formErrorsItem[field] = '';
       const control = form.get(field);
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
+          this.formErrorsItem[field] += messages[key] + ' ';
         }
       }
     }
   }
 
-  onValueChangedVariant(index : number) {
-    if (!this.subForm[index]) { return; }
-    const form = this.subForm[index];
+  onValueChangedVariant(index: number) {
+    if (!this.itemForm.controls.subItems.get(String(index))) { return; }
+    const form = this.itemForm.controls.subItems.get(String(index));
     // tslint:disable-next-line:forin
-    for (const field in this.formErrors) {
+    for (const field in this.formErrorsSubItems[index]) {
       // clear previous error message (if any)
-      this.formErrors[field] = '';
+      this.formErrorsSubItems[index][field] = '';
+      console.log(this.formErrorsSubItems[index])
       const control = form.get(field);
+      // console.log(control)
+      // console.log(control.valid)
       if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
+        const messages = this.validationMessagesVariants[field];
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
+          console.log(messages)
+          this.formErrorsSubItems[index][field] += messages[key] + ' ';
         }
       }
     }
@@ -174,15 +171,18 @@ export class HomeComponent implements OnInit {
     this.item = this.itemForm.value;
     // this.ordersCopy.post(this.orderForm.value).subscribe(orders => this.orders = this.orders);
     // Make a post request or put request to the server.
+    this.http.post('http://localhost:3000/products', this.item).subscribe(woot => console.log(woot), err => console.log(err));
 
     this.itemForm.reset({
       itemName: '',
       itemDetail: '',
       itemCategory: '',
       itemParentCompany: '',
-      numberOfVariants: 1,
+      subItems: this.initSubItem()
     });
   }
+
+
 
   filterStates(name: string) {
     return this.categories.filter(category =>

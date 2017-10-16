@@ -12,18 +12,20 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { ElectronService } from './providers/electron.service';
-import { MatStepperModule, MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule } from '@angular/material';
+import { MatStepperModule, MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ItemCategoriesService } from './services/item-categories.service';
 import { ItemSubCategoriesService } from './services/item-sub-categories.service';
 import { HttpClientModule } from "@angular/common/http";
+import { SubItemComponent } from './components/sub-item/sub-item.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SubItemComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { HttpClientModule } from "@angular/common/http";
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule
   ],
   providers: [ElectronService, ItemCategoriesService, ItemSubCategoriesService],
   bootstrap: [AppComponent]

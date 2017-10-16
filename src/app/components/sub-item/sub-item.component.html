@@ -1,0 +1,51 @@
+<div [formGroup]="subItems">
+  <mat-input-container class="half-width">
+    <input matInput placeholder="Sub name" formControlName="itemSubName">
+  </mat-input-container>
+  <mat-input-container class="half-width" dividerColor="{{ subItemErrors.itemQuantity ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Quantity" formControlName="itemQuantity" required>
+        <mat-hint>
+          <span [hidden]="!(subItemErrors.itemQuantity)">
+                  {{ subItemErrors.itemQuantity }}</span>
+        </mat-hint>
+  </mat-input-container>
+  <mat-input-container class="full-width">
+    <input matInput placeholder="Picutre File Path" formControlName="itemPicture" required>
+        <mat-hint>
+          <span [hidden]="!(subItemErrors.itemPicture)">
+                  {{ subItemErrors.itemPicture }}</span>
+        </mat-hint>
+  </mat-input-container>
+
+  <mat-input-container class="half-width" dividerColor="{{ subItemErrors.itemBarcode ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Barcode" formControlName="itemBarcode" required>
+
+        <mat-hint>
+          <span [hidden]="!(subItemErrors.itemBarcode)">
+                  {{ subItemErrors.itemBarcode }}</span>
+        </mat-hint>
+  </mat-input-container>
+  <mat-input-container class="half-width" dividerColor="{{ subItemErrors.itemMRP ? 'warn' : 'primary'}}">
+    <input matInput placeholder="MRP" formControlName="itemMRP" required>
+            <mat-hint>
+              <span [hidden]="!(subItemErrors.itemMRP)">
+                  {{ subItemErrors.itemMRP }}</span>
+            </mat-hint>
+
+  </mat-input-container>
+  <mat-input-container class="half-width" dividerColor="{{ subItemErrors.itemWholesaleRate ? 'warn' : 'primary'}}">
+    <input matInput placeholder="Wholesale Rate" formControlName="itemWholesaleRate" required>
+            <mat-hint>
+              <span [hidden]="!(subItemErrors.itemWholesaleRate)">
+                  {{ subItemErrors.itemWholesaleRate }}</span>
+            </mat-hint>
+  </mat-input-container>
+  <mat-form-field class="half-width">
+    <input matInput placeholder="Contents" formControlName="itemContents" required>
+            <mat-hint>
+              <span [hidden]="!(subItemErrors.itemContents)">
+                  {{ subItemErrors.itemContents }}</span>
+            </mat-hint>
+
+  </mat-form-field>
+</div>

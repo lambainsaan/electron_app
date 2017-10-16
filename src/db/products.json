@@ -1,0 +1,49 @@
+{
+  "products": [
+    {
+      "itemName": "jfsaldkj",
+      "itemDetail": "jfjdslka",
+      "itemCategory": "jfdslak",
+      "itemParentCompany": "jfsklda",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "fjdsalk",
+          "itemPicture": "fjsdalk",
+          "itemBarcode": "fjdsakl",
+          "itemMRP": "321",
+          "itemWholesaleRate": "21",
+          "itemContents": "fjdsakl"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "itemName": "Maggie",
+      "itemDetail": "",
+      "itemCategory": "prasun",
+      "itemParentCompany": "Nestle",
+      "subItems": [
+        {
+          "itemSubName": null,
+          "itemQuantity": "Pack of 4 50 gm Bricks with Masala",
+          "itemPicture": "ABCD",
+          "itemBarcode": "1234567890",
+          "itemMRP": "50",
+          "itemWholesaleRate": "45",
+          "itemContents": "MSG"
+        },
+        {
+          "itemSubName": "",
+          "itemQuantity": "Pack of 2 50 gm Bricks with Masla",
+          "itemPicture": "EFGH",
+          "itemBarcode": "0987654321",
+          "itemMRP": "95",
+          "itemWholesaleRate": "55",
+          "itemContents": "Microns"
+        }
+      ],
+      "id": 2
+    }
+  ]
+}
