@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import { Http, Response } from '@angular/http';
-
+import { sTu, uTs } from './helper';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,13 +15,17 @@ import { Http, Response } from '@angular/http';
 })
 
 export class HomeComponent implements OnInit {
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  categories = ['rhitik', 'prasun', 'jaisal'];
   itemForm: FormGroup;
   item: Item;
   filteredCategories: Observable<any[]>;
+  categories;
+  obj;
+  valueCategory;
+  selectedCategory;
+  chosenCategories;
+  objCopy;
   formErrorsItem = {
+
     'itemName': '',
     'itemDetail': '',
     'itemCategory': '',
@@ -38,9 +42,6 @@ export class HomeComponent implements OnInit {
   validationMessages = {
     'itemName': {
       'required': 'Item name is required.',
-    },
-    'itemCategory': {
-      'required': 'Item Category is required.',
     },
     'itemParentCompany': {
       'required': 'Item Parent Company is required.'
@@ -66,13 +67,27 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-    private itemCategoriesService: ItemCategoriesService, 
-    private http: Http,) {
+    private itemCategoriesService: ItemCategoriesService,
+    private http: Http, ) {
     this.initItemForm();
-    this.filteredCategories = this.itemForm.get('itemCategory').valueChanges
-      .startWith(null)
-      .map(state => state ? this.filterStates(state) : this.categories.slice());
-
+    itemCategoriesService.getCategoriesObject().subscribe(obj => {
+      this.obj = obj;
+      this.objCopy = obj;
+      const categoriesCopy = Object.keys(obj);
+      this.categories = []
+      // Make seperate function
+      categoriesCopy.forEach(element => {
+        this.categories.push(element.replace(/_/g, ' '));
+      });
+      this.filteredCategories = this.itemForm.get('itemCategory').valueChanges
+        .startWith(null)
+        .map(state => {
+          if (typeof (state) === 'string') {
+            return state ? this.filterStates(state) : this.categories.slice()
+          }
+        });
+    });
+    this.chosenCategories = []
   }
 
 
@@ -84,13 +99,13 @@ export class HomeComponent implements OnInit {
     this.itemForm = this.fb.group({
       itemName: ['', [Validators.required]],
       itemDetail: [''],
-      itemCategory: ['', [Validators.required]],
+      itemCategory: [''],
       itemParentCompany: ['', [Validators.required]],
       subItems: this.fb.array([
         this.initSubItem()
       ])
     });
-    this.itemForm.controls.subItems.valueChanges.subscribe(() => { this.onValueChangedVariant(+this.itemForm.get('subItems.length') - 1)})
+    this.itemForm.controls.subItems.valueChanges.subscribe(() => { this.onValueChangedVariant(+this.itemForm.get('subItems.length') - 1) })
     this.itemForm.valueChanges
       .subscribe(data => this.onValueChangedItemForm(data));
     this.onValueChangedItemForm(); // (re)set validation messages now
@@ -104,10 +119,11 @@ export class HomeComponent implements OnInit {
       itemPicture: [''],
       itemBarcode: ['', [Validators.required]],
       itemMRP: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      itemWholesaleRate: ['', [ Validators.pattern('[0-9]*')]],
+      itemWholesaleRate: ['', [Validators.pattern('[0-9]*')]],
       itemContents: [''],
     });
     return subItem;
+
   }
 
   addSubItem() {
@@ -126,6 +142,22 @@ export class HomeComponent implements OnInit {
     const control = <FormArray>this.itemForm.controls['subItems'];
     control.removeAt(control.length - 1);
   }
+
+  addCategory() {
+    this.chosenCategories.push(this.selectedCategory);
+    if (!(sTu(this.selectedCategory) in this.obj)){
+      this.obj[sTu(this.selectedCategory)] = {}
+    }
+    this.obj = this.obj[sTu(this.selectedCategory)];
+    const categoriesCopy = Object.keys(this.obj) || [''];
+    this.categories = []
+    // Make seperate function
+    categoriesCopy.forEach(element => {
+      this.categories.push(element.replace(/_/g, ' '));
+    });
+    this.selectedCategory = '';
+  }
+
 
   onValueChangedItemForm(data?: any) {
     if (!this.itemForm) { return; }
@@ -152,15 +184,11 @@ export class HomeComponent implements OnInit {
     for (const field in this.formErrorsSubItems[index]) {
       // clear previous error message (if any)
       this.formErrorsSubItems[index][field] = '';
-      console.log(this.formErrorsSubItems[index])
       const control = form.get(field);
-      // console.log(control)
-      // console.log(control.valid)
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessagesVariants[field];
         // tslint:disable-next-line:forin
         for (const key in control.errors) {
-          console.log(messages)
           this.formErrorsSubItems[index][field] += messages[key] + ' ';
         }
       }
@@ -168,11 +196,11 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.itemForm.get('itemCategory').setValue(this.chosenCategories);
+    this.chosenCategories = []
     this.item = this.itemForm.value;
-    // this.ordersCopy.post(this.orderForm.value).subscribe(orders => this.orders = this.orders);
-    // Make a post request or put request to the server.
     this.http.post('http://localhost:3000/products', this.item).subscribe(woot => console.log(woot), err => console.log(err));
-
+    this.http.post('http://localhost:3001/categories', this.objCopy).subscribe(woot => console.log(woot), err => console.log(err));
     this.itemForm.reset({
       itemName: '',
       itemDetail: '',
@@ -180,9 +208,16 @@ export class HomeComponent implements OnInit {
       itemParentCompany: '',
       subItems: this.initSubItem()
     });
-  }
-
-
+    this.itemCategoriesService.getCategoriesObject().subscribe(obj => {
+      this.obj = obj;
+      this.objCopy = this.objCopy;
+      const categoriesCopy = Object.keys(obj);
+      this.categories = []
+      categoriesCopy.forEach(element => {
+        this.categories.push(element.replace(/_/g, ' '));
+      });
+    })
+  };
 
   filterStates(name: string) {
     return this.categories.filter(category =>

@@ -18,18 +18,20 @@
                   {{ formErrorsItem.itemDetail }}</span>
     </mat-hint>
   </mat-input-container>
+  <h4 *ngFor="let chosenCategory of chosenCategories">{{ chosenCategory }} &#8702;</h4>
   <mat-input-container class="half-width" dividerColor="{{ formErrorsItem.itemCategory ? 'warn' : 'primary'}}">
-    <input matInput placeholder="Item Category" aria-label="State" [matAutocomplete]="auto" formControlName="itemCategory">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let food of filteredCategories | async " [value]="food">
+    
+    <input matInput placeholder="Item Category" [(ngModel)]="selectedCategory" aria-label="State"
+      [matAutocomplete]="auto" value="{{selectedCategory}}" formControlName="itemCategory">
+    
+      <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let food of filteredCategories| async" [value]="food">
         {{food}}
       </mat-option>
     </mat-autocomplete>
-    <mat-hint>
-      <span [hidden]="!(formErrorsItem.itemCategory)">
-                  {{ formErrorsItem.itemCategory }}</span>
-    </mat-hint>
+
   </mat-input-container>
+  <button mat-raised-button color="warn" (click)="addCategory()" [disabled]="!selectedCategory">+</button>
   <mat-input-container class="half-width" dividerColor="{{ formErrorsItem.itemParentCompany ? 'warn' : 'primary'}}">
     <input matInput placeholder="Item Parent Company" formControlName="itemParentCompany" required>
     <mat-hint>
@@ -50,5 +52,5 @@
       </div>
     </div>
   </div>
-  <button mat-raised-button type="submit" color="warn" [disabled]="!itemForm.valid" (click)="onSubmit()">Submit</button>
+  <button mat-raised-button type="submit" color="warn" [disabled]="(!(itemForm.valid&&chosenCategories.length != 0))" (click)="onSubmit()">Submit</button>
 </form>

@@ -1,120 +1,132 @@
 {
-    "categories": {
-        "Kirana": {
-            "Dal": {
-                "Tuar": {},
-                "Chana": {},
-                "Moong": {},
-                "Arhar": {}
-            },
-            "Aata": {
-                "Makki": {},
-                "Wheat": {}
-            },
-            "Rice": {
-                "Basmati": {}
-            },
-            "Dry_Fruits": {
-                "Kaju": {},
-                "Akhrot": {},
-                "Pista": {},
-                "Kishmish": {},
-                "Badam": {},
-                "Alsi": {},
-                "Anjeer": {}
-            },
-            "Edible_Oil": {
-                "Sunflower": {},
-                "Moongfali": {},
-                "Sarso": {}
-            },
-            "Ghee": {},
-            "Masala": {
-                "Garam_Masala": {}
-            },
-            "Sugar_and_Salt": {}
+  "categories": {
+    "Kirana": {
+      "Dal": {
+        "Tuar": {},
+        "Chana": {},
+        "Moong": {},
+        "Arhar": {}
+      },
+      "Aata": {
+        "Makki": {},
+        "Wheat": {}
+      },
+      "Rice": {
+        "Basmati": {}
+      },
+      "Dry_Fruits": {
+        "Kaju": {},
+        "Akhrot": {},
+        "Pista": {},
+        "Kishmish": {},
+        "Badam": {},
+        "Alsi": {},
+        "Anjeer": {}
+      },
+      "Edible_Oil": {
+        "Sunflower": {},
+        "Moongfali": {},
+        "Sarso": {}
+      },
+      "Ghee": {},
+      "Masala": {
+        "Garam_Masala": {}
+      },
+      "Sugar_and_Salt": {},
+      "Snacks": {
+        "Instant_Noodles": {}
+      }
+    },
+    "Vegetables_and_Fruits": {
+      "Fruits": {},
+      "Vegetables": {}
+    },
+    "Beverages": {
+      "Soft_Drinks": {},
+      "Juices": {},
+      "Tea_&_Coffee": {
+        "Tea": {
+          "Green_Tea": {
+            "Ginger": {},
+            "Lemon": {},
+            "Tulsi": {}
+          }
         },
-        "Vegetables_and_Fruits": {
-            "Fruits": {},
-            "Vegetables": {}
+        "Coffee": {}
+      },
+      "Health_&_Energy_Drinks": {}
+    },
+    "Stationary_&_Books": {
+      "Pencil,_Rubber,_Pen_&_Colors": {
+        "Pencil": {},
+        "Rubber": {},
+        "Pen": {}
+      },
+      "Color": {
+        "Sketch_Pen": {},
+        "Water_Color": {},
+        "Pencil_Colors": {
+          "Black_and_White": {}
         },
-        "Beverages": {
-            "Soft_Drinks": {},
-            "Juices": {},
-            "Tea_&_Coffee": {
-                "Tea": {
-                    "Green_Tea": {
-                        "Ginger": {},
-                        "Lemon": {},
-                        "Tulsi": {}
-                    }
-                },
-                "Coffee": {}
-            },
-            "Health_&_Energy_Drinks": {}
-        },
-        "Stationary_&_Books": {
-            "Pencil,_Rubber,_Pen_&_Colors": {
-                "Pencil": {},
-                "Rubber": {},
-                "Pen": {}
-            },
-            "Color": {
-                "Sketch_Pen": {},
-                "Water_Color": {},
-                "Pencil_Colors": {},
-                "Wax_Crayons": {}
-            },
-            "Registers & Copies": {},
-            "Box": {},
-            "Kids' Books": {
-                "Reading_Book": {},
-                "Writing_Book": {}
-            }
-        },
-        "Home_care": {
-            "Cleaners": {
-                "Toilet_cleaners": {},
-                "Floor_Cleaners": {},
-                "Multipurpose_cleaners": {}
-            },
-            "Dish_Washers": {
-                "Dish_Washing_Bar": {},
-                "Dish_Washing_Jels_&_Powder": {},
-                "Scrubbers_&_Cleaning_Aids": {}
-            },
-            "Cleaning_Tools_&_Brushes": {
-                "Jadhu_&_Pocha": {},
-                "Cleaning_Cloths_&_Pads": {},
-                "Dustbins": {},
-                "Dustpans": {},
-                "Other_Brushes": {}
-            },
-            "Pooja_Needs": {
-                "Incense_sticks": {},
-                "Other_pooja_items": {}
-            },
-            "Repellents": {
-                "Mosquito_Repellents": {},
-                "Sprays": {},
-                "Creams_&_other_repellents": {}
-            },
-            "Home_&_Car_Fresheners": {
-                "Air_Fresheners": {},
-                "Car_Fresheners": {}
-            },
-            "Tissues_&_Disposables": {
-                "Kitchen_&_dining_disposables": {},
-                "Toilet_&_others_disposables": {}
-            },
-            "Premium_Home_Care": {
-                "Fabric_care": {},
-                "Wipes_Cleaners_&_Others": {}
-            },
-            "Shoe_Care": {
-                "Shoe_Polish": {},
-                "Shoe_Brushes": {}
-            }
+        "Wax_Crayons": {}
+      },
+      "Registers & Copies": {},
+      "Box": {},
+      "Kids' Books": {
+        "Reading_Book": {},
+        "Writing_Book": {}
+      }
+    },
+    "Home_care": {
+      "Cleaners": {
+        "Toilet_cleaners": {},
+        "Floor_Cleaners": {},
+        "Multipurpose_cleaners": {}
+      },
+      "Dish_Washers": {
+        "Dish_Washing_Bar": {},
+        "Dish_Washing_Jels_&_Powder": {},
+        "Scrubbers_&_Cleaning_Aids": {}
+      },
+      "Cleaning_Tools_&_Brushes": {
+        "Jadhu_&_Pocha": {},
+        "Cleaning_Cloths_&_Pads": {},
+        "Dustbins": {},
+        "Dustpans": {},
+        "Other_Brushes": {}
+      },
+      "Pooja_Needs": {
+        "Incense_sticks": {},
+        "Other_pooja_items": {}
+      },
+      "Repellents": {
+        "Mosquito_Repellents": {},
+        "Sprays": {},
+        "Creams_&_other_repellents": {}
+      },
+      "Home_&_Car_Fresheners": {
+        "Air_Fresheners": {},
+        "Car_Fresheners": {}
+      },
+      "Tissues_&_Disposables": {
+        "Kitchen_&_dining_disposables": {},
+        "Toilet_&_others_disposables": {}
+      },
+      "Premium_Home_Care": {
+        "Fabric_care": {},
+        "Wipes_Cleaners_&_Others": {}
+      },
+      "Shoe_Care": {
+        "Shoe_Polish": {},
+        "Shoe_Brushes": {}
+      }
+    },
+    "fjdskal": {
+      "jfkldsa": {
+        "jfdslkajflkdsaj": {
+          "fdsjakljf": {}
         }
+      }
     }
+  }
 }

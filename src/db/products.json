@@ -44,6 +44,215 @@
         }
       ],
       "id": 2
+    },
+    {
+      "itemName": "Rhitik",
+      "itemDetail": "",
+      "itemCategory": [
+        "Vegetables and Fruits",
+        "Exciting",
+        "Ever"
+      ],
+      "itemParentCompany": "Nestle",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "21 KG",
+          "itemPicture": "QWERTYUIO",
+          "itemBarcode": "1234567890",
+          "itemMRP": "23",
+          "itemWholesaleRate": "20",
+          "itemContents": "Jio"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "itemName": "Bumblebee",
+      "itemDetail": "Min fun at max price.",
+      "itemCategory": [
+        "Beverages",
+        "Soft Drinks",
+        "Pepsi",
+        "Pepsi",
+        "Pepsi",
+        "Pepsi"
+      ],
+      "itemParentCompany": "Coca Cola",
+      "subItems": [
+        {
+          "itemSubName": "Miranda",
+          "itemQuantity": "250 mL",
+          "itemPicture": "JFlkdsjfklsdjkl",
+          "itemBarcode": "42204169",
+          "itemMRP": "34",
+          "itemWholesaleRate": "25",
+          "itemContents": "2224448"
+        },
+        {
+          "itemSubName": "",
+          "itemQuantity": "3 mL",
+          "itemPicture": "Zinda",
+          "itemBarcode": "8902442211216",
+          "itemMRP": "23",
+          "itemWholesaleRate": "21",
+          "itemContents": "20 mg fuck"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "itemName": "Nestle Milk",
+      "itemDetail": "",
+      "itemCategory": [
+        "Beverages",
+        "Juices",
+        "Cold Coffee Flavor"
+      ],
+      "itemParentCompany": "Nestle",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "30 gm Pack of 2",
+          "itemPicture": "jfdslkajflkdsajflkasj",
+          "itemBarcode": "123456789",
+          "itemMRP": "30",
+          "itemWholesaleRate": "25",
+          "itemContents": "Milk"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "itemName": "Nestle Milk Powder",
+      "itemDetail": "Well mashed powder for making milk.",
+      "itemCategory": [
+        "Kirana",
+        "Rice",
+        "Mika",
+        "Jawara"
+      ],
+      "itemParentCompany": "P&G",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "35 gm pack",
+          "itemPicture": "44jfdslka",
+          "itemBarcode": "12345",
+          "itemMRP": "45",
+          "itemWholesaleRate": "23",
+          "itemContents": "WOOHOO!"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "itemName": "Try",
+      "itemDetail": "jsfdlka",
+      "itemCategory": [
+        "Stationary & Books",
+        "Color",
+        "Pencil Colors",
+        "Black and White"
+      ],
+      "itemParentCompany": "Camlin",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "23",
+          "itemPicture": "fjdsakljf",
+          "itemBarcode": "fjdsakljf",
+          "itemMRP": "32",
+          "itemWholesaleRate": "21",
+          "itemContents": "jfdsklajflkdsa"
+        },
+        {
+          "itemSubName": "",
+          "itemQuantity": "312jfklsda",
+          "itemPicture": "fjdskal",
+          "itemBarcode": "fjdksal",
+          "itemMRP": "312321",
+          "itemWholesaleRate": "21",
+          "itemContents": "fjdskla"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "itemName": "fsdajlkj",
+      "itemDetail": "jfdskla",
+      "itemCategory": [
+        "fjdskal",
+        "jfkldsa",
+        "jfdslkajflkdsaj",
+        "fdsjakljf"
+      ],
+      "itemParentCompany": "jfdskla",
+      "subItems": [
+        {
+          "itemSubName": "jdsla",
+          "itemQuantity": "jfdslka",
+          "itemPicture": "fjdskla",
+          "itemBarcode": "fjdsakl",
+          "itemMRP": "321",
+          "itemWholesaleRate": "12",
+          "itemContents": "fjsadlk"
+        }
+      ],
+      "id": 8
+    },
+    {
+      "itemName": "fdsa",
+      "itemDetail": "",
+      "itemCategory": [
+        "fjdskal",
+        "jfkldsa",
+        "jfdslkajflkdsaj"
+      ],
+      "itemParentCompany": "kfsa;f",
+      "subItems": [
+        {
+          "itemSubName": "fdsa",
+          "itemQuantity": "vdsaj",
+          "itemPicture": "fdasjk",
+          "itemBarcode": "fjdska",
+          "itemMRP": "21",
+          "itemWholesaleRate": "21",
+          "itemContents": "fjsdka"
+        }
+      ],
+      "id": 9
+    },
+    {
+      "itemName": "Maggi",
+      "itemDetail": "Greatest noodles of all time!",
+      "itemCategory": [
+        "Kirana",
+        "Snacks",
+        "Instant Noodles"
+      ],
+      "itemParentCompany": "Nestle",
+      "subItems": [
+        {
+          "itemSubName": "",
+          "itemQuantity": "Pack of 2 50 gm bricks",
+          "itemPicture": "wertyuiop[sdfghjkl",
+          "itemBarcode": "9780671741907",
+          "itemMRP": "50",
+          "itemWholesaleRate": "45",
+          "itemContents": "msg"
+        },
+        {
+          "itemSubName": "",
+          "itemQuantity": "FDSA,MF",
+          "itemPicture": "NFSDAM,FND",
+          "itemBarcode": "8902519001993",
+          "itemMRP": "41",
+          "itemWholesaleRate": "32",
+          "itemContents": "FDSAFDSA"
+        }
+      ],
+      "id": 10
     }
   ]
 }

@@ -17,7 +17,6 @@ export class ItemCategoriesService {
   }
 
   getCategoriesObject(): Observable<Object> {
-    this.http.get('http://localhost:3001/categories/').subscribe(res => console.log(res));
     return this.http.get('http://localhost:3001/categories/');
   }
 }
